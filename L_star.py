@@ -209,7 +209,7 @@ class L_star:
     def run(self):
         a=(False,[])
         ite = 0
-        while not a[0] and ite > 100:
+        while not a[0] and ite < 100:
             ite = ite+1
             comp = self.isComplete()
             #print "Complete :", str(comp)
@@ -244,7 +244,10 @@ class L_star:
                 for i in range(0, len(splitEx)):
                     self.addRed(' '.join(splitEx[0:i+1]))
         
-        if ite > 100:    
+        #pp.pprint(self.table)
+        #print self.generateAutomaton()
+                
+        if ite >= 100:    
           return False
         else:
           return True
@@ -314,8 +317,6 @@ class L_star:
                     self.addRed(' '.join(splitEx[0:i+1]))
         
         return self.oracle.equivalence(self.generateAutomaton())[0]
-            
-        #print self.generateAutomaton()
         
         
 class Oracle:
@@ -365,12 +366,23 @@ if __name__ == '__main__':
     alphabet = automate.getAlphabet()
     l_star = L_star(alphabet, oracle)
     
-    l_star.run()
-    #l_star.run_without_equivalence()
+    print "Run with equivalence"
+    res = l_star.run()
+    if res:
+      print "Success"
+      print l_star.generateAutomaton()
+    else:
+      print "Failure"
     
-    #pp.pprint(l_star.table)
-            
-    #print l_star.generateAutomaton(), "\n"
+    print
+    print  
+    print "Run without equivalence"
+    res = l_star.run_without_equivalence()
+    if res:
+      print "Success"
+      print l_star.generateAutomaton()
+    else:
+      print "Failure"
     
 def test_cours():
     l_star = L_star(None, None)

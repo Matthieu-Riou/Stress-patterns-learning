@@ -16,7 +16,7 @@ def run(fct):
 
   count = 0
   for f in listdir(mypath):
-      if isfile(join(mypath, f)) and f!="202_Piraha.fsa.att":
+      if isfile(join(mypath, f)):
           count += 1
           a = Automate.importFromFile(join(mypath, f))
           #print a
