@@ -209,6 +209,7 @@ class L_star:
     def run(self):
         a=(False,[])
         ite = 0
+        count = {"Pos" : 0, "Neg" : 0}
         while not a[0] and ite < 100:
             ite = ite+1
             comp = self.isComplete()
@@ -240,12 +241,21 @@ class L_star:
             if not a[0]:
                 #print "Ex", a[1]
                 assert(a[1] not in self.table['red'] and a[1] not in self.table['blue'])
+                
+                if self.oracle.query(a[1]):
+                  count["Pos"] += 1
+                else:
+                  count["Neg"] += 1
+                
                 splitEx = a[1].split(' ')
                 for i in range(0, len(splitEx)):
                     self.addRed(' '.join(splitEx[0:i+1]))
         
         #pp.pprint(self.table)
         #print self.generateAutomaton()
+        
+        
+        print "Statistiques : ", count
                 
         if ite >= 100:    
           return False
@@ -255,6 +265,7 @@ class L_star:
             
     def run_without_equivalence(self):
         a=(False,[])
+        count = {"Pos" : 0, "Neg" : 0}
         while not a[0]:
             comp = self.isComplete()
             #print "Complete :", str(comp)
@@ -312,9 +323,18 @@ class L_star:
             if not a[0]:
                 #print "Ex", a[1]
                 assert(a[1] not in self.table['red'] and a[1] not in self.table['blue'])
+                
+                if self.oracle.query(a[1]):
+                  count["Pos"] += 1
+                else:
+                  count["Neg"] += 1
+                
                 splitEx = a[1].split(' ')
                 for i in range(0, len(splitEx)):
                     self.addRed(' '.join(splitEx[0:i+1]))
+        
+        
+        print "Statistiques : ", count
         
         return self.oracle.equivalence(self.generateAutomaton())[0]
         
