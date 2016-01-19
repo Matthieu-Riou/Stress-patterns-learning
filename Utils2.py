@@ -43,10 +43,14 @@ class Equivalence:
             return (False, path)
         else:
             if self.classe[s1] != self.classe[s2]:
-                saves1 = self.classe[s1]
-                if self.classe[s2] not in self.classe[s1]:
+                #print self.classe[s1], '--', self.classe[s2]
+                if set(self.classe[s2].split(' ')).issubset(set(self.classe[s1].split(' '))):
+		    self.classe[s2] = self.classe[s1]
+                elif set(self.classe[s1].split(' ')).issubset(set(self.classe[s2].split(' '))):
+		    self.classe[s1] = self.classe[s2]
+	        else:
+		    saves1 = self.classe[s1]
                     self.classe[s1] = self.classe[s1] + ' ' + self.classe[s2]
-                if self.classe[s1] not in self.classe[s2]:
                     self.classe[s2] = saves1 + ' ' + self.classe[s2]
                 for a in self.alphabet:
                     t1 = [t for t in self.automate1.automaton[s1[2:]] if t[1] == a]

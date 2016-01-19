@@ -255,7 +255,7 @@ class L_star:
         #print self.generateAutomaton()
         
         
-        print "Statistiques : ", count
+        print "Pos	" + str(count["Pos"]) + "	Neg	" + str(count["Neg"])
                 
         if ite >= 100:    
           return False
@@ -334,7 +334,7 @@ class L_star:
                     self.addRed(' '.join(splitEx[0:i+1]))
         
         
-        print "Statistiques : ", count
+        print "Pos	" + str(count["Pos"]) + "	Neg	" + str(count["Neg"])
         
         return self.oracle.equivalence(self.generateAutomaton())[0]
         

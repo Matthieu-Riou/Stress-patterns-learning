@@ -4,6 +4,7 @@ from L_star import *
 
 from os import listdir
 from os.path import isfile, join
+import sys
 
 import datetime
 
@@ -18,6 +19,7 @@ def run(fct):
   for f in listdir(mypath):
       if isfile(join(mypath, f)):
           count += 1
+	  sys.stdout.write(f+"	")
           a = Automate.importFromFile(join(mypath, f))
           #print a
           
@@ -33,11 +35,11 @@ def run(fct):
           if not res:
             false.append(f)
 
-  print len(false), '/', count, false
+  print "##", len(false), '/', count, false
 
-print "Run with equivalence"
+print "#Run with equivalence"
 run("run")
-  
-print "Run_without_equivalence"
-for i in range(4):
+
+for i in range(5):
+  print "#Run_without_equivalence", i
   run("run_without_equivalence")
